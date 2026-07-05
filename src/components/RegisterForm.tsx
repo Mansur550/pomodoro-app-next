@@ -1,4 +1,5 @@
 import * as z from "zod"
+import{useForm} from "react-hook-form"
 
 
 const formSchema = z.object({
@@ -9,19 +10,21 @@ const formSchema = z.object({
     confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters long"),
 
 })
-.refine((data)=>data.password == data.confirmPassword{
+.refine((data)=>data.password == data.confirmPassword, {
     message: "Passwords do not match",
     path:  ["confirmPassword"],
         
     });
     
 
+type  FormData = z.infer<typeof formSchema>
+export default function RegisterForm() {
 
-export default function Register() {
+    const {register, handleSubmit, formstate } = useForm<FormData>{}
     return (
         <div>
             <h1>Register Page</h1>
             
         </div>
-    )
+    );
 }
