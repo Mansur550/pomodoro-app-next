@@ -1,5 +1,6 @@
 import * as z from "zod"
 import{useForm} from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 
 const formSchema = z.object({
@@ -20,7 +21,9 @@ const formSchema = z.object({
 type  FormData = z.infer<typeof formSchema>
 export default function RegisterForm() {
 
-    const {register, handleSubmit, formstate } = useForm<FormData>{}
+    const {register, handleSubmit, formState } = useForm<FormData>({
+        resolver : zodResolver(formSchema)
+    })
     return (
         <div>
             <h1>Register Page</h1>
