@@ -1,3 +1,4 @@
+'use client'
 import * as z from "zod"
 import{useForm} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -18,16 +19,34 @@ const formSchema = z.object({
     });
     
 
-type  FormData = z.infer<typeof formSchema>
+type  FormSchema = z.infer<typeof formSchema>
+
 export default function RegisterForm() {
 
-    const {register, handleSubmit, formState } = useForm<FormData>({
+    const onSubmit = (data: FormSchema) => {
+        console.log(data)
+        //Handle form submission logic here
+    };
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+     } = useForm<FormSchema>({
         resolver : zodResolver(formSchema)
-    })
+    });
+
     return (
-        <div>
-            <h1>Register Page</h1>
+        <form onSubmit={handleSubmit(onSubmit)}
+         action=""
+         className="space-y-4 w-full max-w-md"
+         >
+            <h2 className="text-2xl font-bold mb-4">Create you Account</h2>
+            <Input>
             
-        </div>
+            </Input>
+
+        </form>
+       
     );
 }
