@@ -49,6 +49,18 @@ export default function RegisterForm() {
                 {...register("firstName")}
                 error ={errors.firstName?.message}
             /> 
+            <Input
+                label="Last Name"
+                type ="text"
+                {...register("lastName")}
+                error ={errors.lastName?.message}
+            /> 
+            <Input
+                label="Email"
+                type ="email"
+                {...register("email")}
+                error ={errors.email?.message}
+            /> 
 
         </form>
        
