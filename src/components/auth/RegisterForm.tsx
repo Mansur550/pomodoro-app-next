@@ -61,6 +61,21 @@ export default function RegisterForm() {
                 {...register("email")}
                 error ={errors.email?.message}
             /> 
+            <Input
+                label="Password"
+                type ="password"
+                {...register("password")}
+                error ={errors.password?.message}
+            /> 
+             <Input
+                label="Confirm Password"
+                type ="password"
+                {...register("confirmPassword")}
+                error ={errors.confirmPassword?.message}
+            />
+            <Button>
+                Register
+            </Button>
 
         </form>
        
