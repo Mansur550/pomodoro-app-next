@@ -24,8 +24,8 @@ const formSchema = z.object({
 
 type  FormSchema = z.infer<typeof formSchema>
 
-export default function RegisterForm() {
 
+export default function RegisterForm() {
     const onSubmit = (data: FormSchema) => {
         setIsLoading(true);
         setServerError(false);
@@ -81,8 +81,8 @@ export default function RegisterForm() {
                 {...register("confirmPassword")}
                 error ={errors.confirmPassword?.message}
             />
-            <Button type="submit"  className="w-full">
-                Register
+            <Button type="submit"  className="w-full" disabled={isLoading}>
+                {isLoading ? "Loading..." : "Register"}
             </Button>
 
         </form>
