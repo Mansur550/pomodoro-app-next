@@ -2,6 +2,7 @@
 import * as z from "zod"
 import{useForm} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import Input from "../Ui/input";
 
 
 const formSchema = z.object({
@@ -42,9 +43,12 @@ export default function RegisterForm() {
          className="space-y-4 w-full max-w-md"
          >
             <h2 className="text-2xl font-bold mb-4">Create you Account</h2>
-            <Input>
-            
-            </Input>
+            <Input
+                label="First Name"
+                type ="text"
+                {...register("firstName")}
+                error ={errors.firstName?.message}
+            /> 
 
         </form>
        

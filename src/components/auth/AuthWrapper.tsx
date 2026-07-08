@@ -14,6 +14,7 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
                 <div className="mb-6 text-center text-2xl font-bold text-gray-800">
                     Pomodoro App
                 </div>
+                {children}
 
             </div>
 

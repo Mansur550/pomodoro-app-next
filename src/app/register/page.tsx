@@ -1,5 +1,5 @@
-import AuthWrapper from "@/components/AuthWrapper";
-import RegisterForm from "@/components/RegisterForm";
+import AuthWrapper from "@/components/auth/AuthWrapper";
+import RegisterForm from "@/components/auth/RegisterForm";
 
 export default function Register() {
     return (
