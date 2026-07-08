@@ -1,6 +1,6 @@
 'use client'
 import * as z from "zod"
-import{useForm} from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Input from "../Ui/input";
 import Button from "../Ui/button";
@@ -8,84 +8,95 @@ import React from "react";
 
 
 const formSchema = z.object({
-    firstName: z.string().min(2 , "First name is required"),
-    lastName: z.string().min(2 , "Last name is required"),
+    firstName: z.string().min(2, "First name is required"),
+    lastName: z.string().min(2, "Last name is required"),
     email: z.string().email("Invalid email address"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
     confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters long"),
 
 })
-.refine((data)=>data.password == data.confirmPassword, {
-    message: "Passwords do not match",
-    path:  ["confirmPassword"],
-        
-    });
-    
+    .refine((data) => data.password == data.confirmPassword, {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
 
-type  FormSchema = z.infer<typeof formSchema>
+    });
+
+
+type FormSchema = z.infer<typeof formSchema>
 
 
 export default function RegisterForm() {
-    const onSubmit = (data: FormSchema) => {
-        setIsLoading(true);
-        setServerError(false);
-        console.log("From submitted:",data);
-        //Handle form submission logic here
-    };
+
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-     } = useForm<FormSchema>({
-        resolver : zodResolver(formSchema)
+    } = useForm<FormSchema>({
+        resolver: zodResolver(formSchema)
     });
-     
+
 
     const [isLoading, setIsLoading] = React.useState(false);
-    const [serverError, setServerError] = React.useState(false);
+    const [serverError, setServerError] = React.useState("");
+    
+    const onSubmit = (data: FormSchema) => {
+        setIsLoading(true);
+        setServerError("");
+        console.log("From submitted:", data);
+        //Handle form submission logic here
+
+        try{
+           console.log("Creating account with data:", data) 
+        }catch (error) {
+            "Something went wrong"
+        }finally{
+            setIsLoading(false)
+        }
+    };
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}
-         action=""
-         className="space-y-4 w-full max-w-md"
-         >
+            action=""
+            className="space-y-4 w-full max-w-md"
+        >
             <h2 className="text-2xl font-bold mb-4">Create you Account</h2>
             <Input
                 label="First Name"
-                type ="text"
+                type="text"
                 {...register("firstName")}
-                error ={errors.firstName?.message}
-            /> 
+                error={errors.firstName?.message}
+            />
             <Input
                 label="Last Name"
-                type ="text"
+                type="text"
                 {...register("lastName")}
-                error ={errors.lastName?.message}
-            /> 
+                error={errors.lastName?.message}
+            />
             <Input
                 label="Email"
-                type ="text"
+                type="text"
                 {...register("email")}
-                error ={errors.email?.message}
-            /> 
+                error={errors.email?.message}
+            />
             <Input
                 label="Password"
-                type ="password"
+                type="password"
                 {...register("password")}
-                error ={errors.password?.message}
-            /> 
-             <Input
-                label="Confirm Password"
-                type ="password"
-                {...register("confirmPassword")}
-                error ={errors.confirmPassword?.message}
+                error={errors.password?.message}
             />
-            <Button type="submit"  className="w-full" disabled={isLoading}>
+            <Input
+                label="Confirm Password"
+                type="password"
+                {...register("confirmPassword")}
+                error={errors.confirmPassword?.message}
+            />
+            <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Loading..." : "Register"}
             </Button>
 
         </form>
-       
+
     );
 }
