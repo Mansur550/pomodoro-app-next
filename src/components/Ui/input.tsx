@@ -13,7 +13,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     ({ label, name, type = "text", error, className, ...props }, ref) => {
         return (
             <div className={clsx("flex flex-col space-y-1", className)}>
-                <label className="text-sm font-medium " htmlFor={props.id||props.name}>
+                <label className="text-sm font-medium " htmlFor={props.id || name}>
                     {label}
                 </label>
                 <input

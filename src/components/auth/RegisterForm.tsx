@@ -3,6 +3,8 @@ import * as z from "zod"
 import{useForm} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Input from "../Ui/input";
+import Button from "../Ui/button";
+import React from "react";
 
 
 const formSchema = z.object({
@@ -25,7 +27,9 @@ type  FormSchema = z.infer<typeof formSchema>
 export default function RegisterForm() {
 
     const onSubmit = (data: FormSchema) => {
-        console.log(data)
+        setIsLoading(true);
+        setServerError(false);
+        console.log("From submitted:",data);
         //Handle form submission logic here
     };
 
@@ -36,6 +40,10 @@ export default function RegisterForm() {
      } = useForm<FormSchema>({
         resolver : zodResolver(formSchema)
     });
+     
+
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [serverError, setServerError] = React.useState(false);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}
@@ -57,7 +65,7 @@ export default function RegisterForm() {
             /> 
             <Input
                 label="Email"
-                type ="email"
+                type ="text"
                 {...register("email")}
                 error ={errors.email?.message}
             /> 
@@ -73,7 +81,7 @@ export default function RegisterForm() {
                 {...register("confirmPassword")}
                 error ={errors.confirmPassword?.message}
             />
-            <Button>
+            <Button type="submit"  className="w-full">
                 Register
             </Button>
 
